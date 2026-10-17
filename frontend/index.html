@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishiRakshak — Predict. Detect. Irrigate. Protect.</title>
+  <meta name="description" content="AI-Based Weather-Driven Pest Forecasting, Smart Irrigation, and Crop Recommendation Decision Support System.">
+  <link rel="stylesheet" href="css/style.css?v=20261017_tablespacing">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Collapsible Modern Sidebar -->
+    <aside class="app-sidebar">
+      <div class="brand-wrapper">
+        <div class="brand-icon">🌾</div>
+        <div class="brand-title">
+          <span>KrishiRakshak</span>
+          <span class="tagline-small">Predict • Irrigate • Protect</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item active" data-page="home">
+          <span class="icon">🏠</span> Home
+        </a>
+        <a class="nav-item" data-page="crops">
+          <span class="icon">🌱</span> Crop Recommendation
+        </a>
+        <a class="nav-item" data-page="pest">
+          <span class="icon">🐛</span> Pest Forecast
+          <span class="nav-badge-pill">XGBoost</span>
+        </a>
+        <a class="nav-item" data-page="irrigation">
+          <span class="icon">💧</span> Irrigation Advisory
+          <span class="nav-badge-pill" style="background:rgba(56,189,248,0.2); color:#38bdf8; border-color:rgba(56,189,248,0.3);">FAO-56</span>
+        </a>
+        <a class="nav-item" data-page="disease">
+          <span class="icon">📷</span> Disease Detection
+          <span class="nav-badge-pill" style="background:rgba(245,158,11,0.2); color:#fbbf24; border-color:rgba(245,158,11,0.3);">Integration</span>
+        </a>
+        <a class="nav-item" data-page="treatment">
+          <span class="icon">🌿</span> IPM Treatment Guide
+        </a>
+        <a class="nav-item" data-page="analytics">
+          <span class="icon">📈</span> Sensor Trends
+        </a>
+        <a class="nav-item" data-page="settings">
+          <span class="icon">⚙️</span> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="foot-icon">🌿</div>
+        <strong>Healthy Crops, Brighter Tomorrow</strong>
+        <span>Smart, sensor-free decisions for a sustainable farming future.</span>
+        <div class="station-badge">
+          <span class="pulse-dot"></span>
+          <span>KU Leuven Station (Kruisem)</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      <!-- Topbar Controls -->
+      <div class="topbar">
+        <div class="location-controls">
+          📍 <input id="top-lat" type="number" step="0.01" value="21.15">, <input id="top-lon" type="number" step="0.01" value="79.09">
+          <select id="top-crop-select">
+            <option value="cotton">Cotton</option>
+            <option value="rice" selected>Rice</option>
+            <option value="soybean">Soybean</option>
+            <option value="wheat">Wheat</option>
+          </select>
+          <button id="top-update-btn">Update</button>
+        </div>
+        <div class="topbar-actions">
+          <div class="mode-badge-pill" title="Toggle or configure in Settings" onclick="window.krishiApp.switchPage('settings')">
+            <span class="pulse-dot"></span>
+            <span class="mode-badge-text">DATASET MODE</span>
+          </div>
+          <div class="icon-btn" id="quick-refresh-btn" title="Refresh Latest Data">🔔</div>
+          <div class="profile-pill">
+            <div class="profile-avatar">👩🏽‍🌾</div>
+            <span>Farmer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- =================================================================
+           PAGE 1: OVERVIEW DASHBOARD (BENTO LAYOUT)
+           ================================================================= -->
+      <section class="page-view active" id="page-home">
+        <div class="greeting-section">
+          <h2 class="greeting" id="greetingText">Good Evening, Farmer 🌾</h2>
+          <p class="subgreeting">Let's make your farm more productive and sustainable.</p>
+        </div>
+
+        <div class="bento">
+          <div class="bento-left">
+
+            <!-- Weather Card -->
+            <div class="glass-card weather-card">
+              <div class="weather-main">
+                <div class="emoji" id="dash-weather-emoji">⛅</div>
+                <div>
+                  <div class="temp" id="dash-temp">28°C</div>
+                  <div class="cond"><span id="dash-weather-condition">Partly Cloudy</span> · <span id="dash-location-name">Nagpur, Maharashtra</span></div>
+                </div>
+              </div>
+              <div class="weather-stats">
+                <div><div class="stat-label">Humidity</div><div class="stat-value" id="dash-humidity">💧 68%</div></div>
+                <div><div class="stat-label">Rainfall (Today)</div><div class="stat-value" id="dash-rain">🌧️ 2mm</div></div>
+                <div><div class="stat-label">Wind Speed</div><div class="stat-value" id="dash-wind">🍃 12 km/h</div></div>
+              </div>
+            </div>
+
+            <!-- Crop Hero Card -->
+            <div class="glass-card crop-hero">
+              <div class="eyebrow">🌱 Crop Recommendation</div>
+              <h3>Best crop for your land</h3>
+              <p>Based on recent temperature, humidity and rainfall patterns, we recommend:</p>
+              <div class="crop-pick">
+                <div class="thumb" id="dash-crop-thumb">🌾</div>
+                <div>
+                  <div class="name" id="dash-top-crop-name">Paddy (Rice)</div>
+                  <span class="tag-pill" id="dash-top-crop-score">High Suitability</span>
+                </div>
+              </div>
+              <button class="view-btn" onclick="window.krishiApp.switchPage('crops')">View Details →</button>
+            </div>
+
+            <!-- 5-Day Forecast Card -->
+            <div class="glass-card forecast-card">
+              <h4>☁️ 5-Day Forecast</h4>
+              <div class="forecast-row" id="dash-forecast-row">
+                <div class="forecast-day today">
+                  <div class="d">Today</div>
+                  <div class="e">⛅</div>
+                  <div class="t">28°C</div>
+                </div>
+                <div class="forecast-day">
+                  <div class="d">Sun</div>
+                  <div class="e">☀️</div>
+                  <div class="t">31°C</div>
+                </div>
+                <div class="forecast-day">
+                  <div class="d">Mon</div>
+                  <div class="e">🌧️</div>
+                  <div class="t">29°C</div>
+                </div>
+                <div class="forecast-day">
+                  <div class="d">Tue</div>
+                  <div class="e">⛈️</div>
+                  <div class="t">27°C</div>
+                </div>
+                <div class="forecast-day">
+                  <div class="d">Wed</div>
+                  <div class="e">🌤️</div>
+                  <div class="t">30°C</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="bento-right">
+
+            <!-- Alert Card -->
+            <div class="glass-card mini-card" id="dash-alert-card">
+              <div class="head"><div class="ico">🌿</div> <span id="dash-alert-title">No Critical Alerts</span></div>
+              <p id="dash-alert-msg">Your crops are looking healthy!</p>
+            </div>
+
+            <!-- Pest Forecast Mini Card -->
+            <div class="glass-card mini-card">
+              <div class="head"><div class="ico">🐛</div> Pest Forecast</div>
+              <p id="dash-pest-summary">XGBoost 3–5 day risk projection indicates low insect pest pressure.</p>
+              <div class="row-with-arrow">
+                <span class="status-pill ok" id="dash-pest-risk-badge">Low Risk</span>
+                <span class="arrow-link" onclick="window.krishiApp.switchPage('pest')" title="Open Pest Forecast">›</span>
+              </div>
+            </div>
+
+            <!-- Irrigation Advisory Mini Card -->
+            <div class="glass-card mini-card">
+              <div class="head"><div class="ico">💧</div> Irrigation Advisory</div>
+              <p id="dash-irr-summary">Soil moisture is at optimal level (31.2% VWC). No irrigation needed today.</p>
+              <div class="row-with-arrow">
+                <span class="status-pill ok" id="dash-irr-badge">Optimal</span>
+                <span class="arrow-link" onclick="window.krishiApp.switchPage('irrigation')" title="Open Irrigation Advisory">›</span>
+              </div>
+            </div>
+
+            <!-- Quick Actions Card -->
+            <div class="glass-card quick-actions">
+              <h4>⚡ Quick Actions</h4>
+              <div class="qa-grid">
+                <div class="qa-btn" onclick="window.krishiApp.switchPage('crops')">🌱 Get Crop Recommendation <span style="font-size:16px;">›</span></div>
+                <div class="qa-btn" onclick="window.krishiApp.switchPage('pest')">🐛 Check Pest Forecast <span style="font-size:16px;">›</span></div>
+                <div class="qa-btn" onclick="window.krishiApp.switchPage('irrigation')">💧 Plan Irrigation <span style="font-size:16px;">›</span></div>
+                <div class="qa-btn" onclick="window.krishiApp.switchPage('disease')">📷 Scan Leaf Photo <span style="font-size:16px;">›</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 2: PEST RISK FORECASTING & SHAP
+           ================================================================= -->
+      <section class="page-view" id="page-pest">
+        <div class="section-banner">
+          <div>
+            <h2>🐛 Pest Risk Forecasting & TreeSHAP Attribution</h2>
+            <p>Predicts insect pest outbreak risk 3-5 days ahead using trained XGBoost and exact additive feature contributions.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:28px;">
+          <!-- Left: Input Parameters Form -->
+          <div class="glass-card">
+            <div class="card-header-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <h3 class="card-title" style="margin:0;"><span class="icon">🎛️</span> Microclimate & Agronomic Inputs</h3>
+              <button type="button" id="btn-sync-pest-weather" style="background:rgba(16,185,129,0.18); border:1.5px solid rgba(16,185,129,0.45); color:var(--emerald-400); font-size:0.75rem; padding:5px 12px; border-radius:8px; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s ease;" title="Fetch live humidity & temperature from Weather API">
+                ⛅ Fetch Live Weather & Humidity
+              </button>
+            </div>
+            <form id="pest-form" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="form-group">
+                <label class="form-label">Crop Variety</label>
+                <select class="form-select" id="pest-crop">
+                  <option value="cotton">Cotton (Gossypium hirsutum)</option>
+                  <option value="rice">Rice (Oryza sativa)</option>
+                  <option value="maize">Maize (Zea mays)</option>
+                  <option value="chickpea">Chickpea (Cicer arietinum)</option>
+                  <option value="prei">Leek (Allium porrum)</option>
+                  <option value="bloemkool">Cauliflower (Brassica oleracea)</option>
+                </select>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Temperature: <span class="val-tag" id="pest-temp-val">28.5</span>°C</label>
+                  <input type="range" class="form-range" id="pest-temp" min="10" max="45" step="0.5" value="28.5">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Humidity: <span class="val-tag" id="pest-hum-val">82</span>%</label>
+                  <input type="range" class="form-range" id="pest-hum" min="20" max="100" step="1" value="82">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Precipitation: <span class="val-tag" id="pest-rain-val">45</span> mm</label>
+                  <input type="range" class="form-range" id="pest-rain" min="0" max="150" step="1" value="45">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Soil pH: <span class="val-tag" id="pest-ph-val">6.5</span></label>
+                  <input type="range" class="form-range" id="pest-ph" min="4" max="9" step="0.1" value="6.5">
+                </div>
+              </div>
+
+              <div class="form-grid-3">
+                <div class="form-group">
+                  <label class="form-label">Nitrogen (N): <span class="val-tag" id="pest-n-val">85</span></label>
+                  <input type="range" class="form-range" id="pest-n" min="0" max="140" step="5" value="85">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phosphorus (P): <span class="val-tag" id="pest-p-val">40</span></label>
+                  <input type="range" class="form-range" id="pest-p" min="5" max="145" step="5" value="40">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Potassium (K): <span class="val-tag" id="pest-k-val">40</span></label>
+                  <input type="range" class="form-range" id="pest-k" min="5" max="205" step="5" value="40">
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="margin-top:10px;">
+                ⚡ Execute XGBoost Risk Inference
+              </button>
+            </form>
+          </div>
+
+          <!-- Right: Prediction & TreeSHAP Output -->
+          <div class="glass-card highlight-emerald">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">📊</span> Inference & TreeSHAP Attribution</h3>
+              <span class="badge danger" id="pest-result-risk">HIGH RISK</span>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;">
+              <div>
+                <span style="font-size:0.8rem; color:var(--text-dim); text-transform:uppercase;">Predicted Probability</span>
+                <div style="font-size:2.2rem; font-weight:800; font-family:'JetBrains Mono'; color:var(--text-main);" id="pest-result-prob">98.2%</div>
+              </div>
+              <div style="font-size:0.82rem; color:var(--text-muted); text-align:right;">
+                <span>Class Breakdown:</span>
+                <div style="font-family:'JetBrains Mono'; font-size:0.75rem; margin-top:2px;">
+                  High: <span id="pest-prob-high" style="color:var(--rose-400);">98.2%</span> |
+                  Med: <span id="pest-prob-med" style="color:var(--amber-400);">1.5%</span> |
+                  Low: <span id="pest-prob-low" style="color:var(--emerald-400);">0.3%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Summary Banner -->
+            <div style="background:rgba(254,242,242,0.85); border-left:4px solid var(--rose-500); border:1px solid rgba(239,68,68,0.25); border-left-width:4px; padding:10px 14px; border-radius:8px; font-size:0.86rem; color:var(--text-main); margin-bottom:16px;" id="pest-result-action">
+              Urgent field scouting required within 48h. Microclimate strongly favors insect multiplication.
+            </div>
+
+            <!-- TreeSHAP Diverging Bar Container -->
+            <div id="pest-shap-container">
+              <!-- Rendered by charts.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom: Prediction History Table -->
+        <div class="glass-card table-card">
+          <div class="card-header-row">
+            <h3 class="card-title"><span class="icon">📜</span> Recent Pest Predictions Log</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Crop</th>
+                  <th>Predicted Risk</th>
+                  <th>Probability</th>
+                  <th>Microclimate Inputs</th>
+                </tr>
+              </thead>
+              <tbody id="pest-history-tbody">
+                <tr><td colspan="5" style="text-align:center;">Loading records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 3: SMART IRRIGATION
+           ================================================================= -->
+      <section class="page-view" id="page-irrigation">
+        <div class="section-banner">
+          <div>
+            <h2>💧 Smart Irrigation Advisory (FAO-56 Water Balance)</h2>
+            <p>Computes crop evapotranspiration ETc, integrates dielectric sensor moisture, and calculates exact irrigation requirement.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:28px;">
+          <!-- Left: Soil & Crop Parameters -->
+          <div class="glass-card">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">🌾</span> Field Configuration</h3>
+            </div>
+            <form id="irrigation-form" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Crop Specie</label>
+                  <select class="form-select" id="irr-crop">
+                    <option value="prei">Prei / Leek (Allium porrum)</option>
+                    <option value="witloof">Witloof / Chicory</option>
+                    <option value="bloemkool">Bloemkool / Cauliflower</option>
+                    <option value="cotton">Cotton</option>
+                    <option value="rice">Rice</option>
+                    <option value="maize">Maize</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Growth Stage</label>
+                  <select class="form-select" id="irr-stage">
+                    <option value="initial">Initial Stage</option>
+                    <option value="mid" selected>Mid-Season (Peak Water Need)</option>
+                    <option value="late">Late Season / Maturity</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Soil Classification</label>
+                  <select class="form-select" id="irr-soil">
+                    <option value="Sdm" selected>Sdm (Sandy Loam - FC: 28%)</option>
+                    <option value="Scp">Scp (Sandy Clay Loam - FC: 27%)</option>
+                    <option value="Aca">Aca (Silt Loam - FC: 34%)</option>
+                    <option value="Sbb">Sbb (Loamy Sand - FC: 26%)</option>
+                    <option value="Zbf">Zbf (Sand - FC: 30%)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Irrigation Method</label>
+                  <select class="form-select" id="irr-method">
+                    <option value="druppel" selected>Druppel (Drip - High Efficiency)</option>
+                    <option value="haspel">Haspel (Reel Sprinkler)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">48h Rain Forecast (mm)</label>
+                  <input type="number" class="form-input" id="irr-rain-override" value="0.0" min="0" max="100" step="0.5">
+                </div>
+                <div class="form-group">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <label class="form-label" style="margin-bottom:0;">Soil Moisture (% VWC)</label>
+                    <button type="button" id="btn-sync-sensor-moist" style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:var(--emerald-400); font-size:0.72rem; padding:3px 8px; border-radius:6px; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:4px;" title="Reset to latest reading from TEROS 10 dataset">
+                      📡 Sync Sensor Dataset
+                    </button>
+                  </div>
+                  <input type="number" class="form-input" id="irr-moist-override" placeholder="Loading sensor dataset..." min="1" max="60" step="0.1">
+                  <span style="font-size:0.72rem; color:var(--text-dim); margin-top:2px;" id="irr-sensor-hint">
+                    Sensor: 2F71D1 (TEROS 10 dielectric capacitance at 15 cm depth)
+                  </span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="margin-top:10px;">
+                💧 Compute Smart Water Balance
+              </button>
+            </form>
+          </div>
+
+          <!-- Right: Irrigation Decision & Soil Moisture Dial -->
+          <div class="glass-card highlight-emerald">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">🎯</span> Advisory Recommendation</h3>
+              <span class="badge info" id="irr-result-decision">IRRIGATE</span>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 180px 1fr; gap:20px; align-items:center;">
+              <!-- Radial Dial -->
+              <div id="irr-dial-container">
+                <!-- SVG gauge rendered by charts.js -->
+              </div>
+
+              <div>
+                <span class="badge warning" id="irr-result-intensity" style="margin-bottom:8px;">HIGH Intensity</span>
+                <div style="font-size:2.2rem; font-weight:800; font-family:'JetBrains Mono'; color:var(--text-main);" id="irr-result-amount-mm">
+                  73.3 mm
+                </div>
+                <div style="font-size:0.9rem; color:var(--cyan-400); font-family:'JetBrains Mono';" id="irr-result-amount-l">
+                  73.3 L/m² (733,333 L/ha)
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-dim); margin-top:8px;">
+                  <span id="irr-result-etc">ETc: 4.2 mm/d</span> • <span id="irr-result-depletion">65% Depletion</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px; border-top:1px solid var(--card-border); padding-top:14px;">
+              <div style="font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:8px;">Agronomic Reasoning & Safety Checks:</div>
+              <ul class="crop-reasons-list" id="irr-reasons-list">
+                <li>Soil moisture dropped below Management Allowed Depletion threshold.</li>
+                <li>Upcoming 48h rainfall is insufficient to replenish root deficit.</li>
+                <li>Target irrigation application calculated to restore root zone to Field Capacity.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="glass-card table-card">
+          <div class="card-header-row">
+            <h3 class="card-title"><span class="icon">📜</span> Past Irrigation Advisories</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Crop</th>
+                  <th>Soil Moisture</th>
+                  <th>Decision</th>
+                  <th>Water Amount</th>
+                </tr>
+              </thead>
+              <tbody id="irr-history-tbody">
+                <tr><td colspan="5" style="text-align:center;">Loading advisories...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 4: CROP RECOMMENDATION ENGINE
+           ================================================================= -->
+      <section class="page-view" id="page-crops">
+        <div class="section-banner">
+          <div>
+            <h2>🌱 Agronomic Suitability & Ecological Crop Scoring</h2>
+            <p>Transparent rule-based scoring matching soil nutrients, soil pH, and climate parameters to 22 major crop species.</p>
+          </div>
+        </div>
+
+        <!-- Soil Parameters Form -->
+        <div class="glass-card">
+          <div class="card-header-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <h3 class="card-title" style="margin:0;"><span class="icon">🧪</span> Soil Test & Climate Profile</h3>
+            <button type="button" id="btn-sync-crop-weather" style="background:rgba(16,185,129,0.18); border:1.5px solid rgba(16,185,129,0.45); color:var(--emerald-400); font-size:0.75rem; padding:5px 12px; border-radius:8px; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:6px; transition:all 0.2s ease;" title="Fetch live humidity & temperature from Weather API">
+              ⛅ Fetch Live Weather & Humidity
+            </button>
+          </div>
+          <form id="crop-form">
+            <div class="form-grid-3" style="margin-bottom:16px;">
+              <div class="form-group">
+                <label class="form-label">Nitrogen (N): <span class="val-tag" id="crop-n-val">90</span> kg/ha</label>
+                <input type="range" class="form-range" id="crop-n" min="0" max="140" value="90">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phosphorus (P): <span class="val-tag" id="crop-p-val">42</span> kg/ha</label>
+                <input type="range" class="form-range" id="crop-p" min="5" max="145" value="42">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Potassium (K): <span class="val-tag" id="crop-k-val">43</span> kg/ha</label>
+                <input type="range" class="form-range" id="crop-k" min="5" max="205" value="43">
+              </div>
+            </div>
+
+            <div class="form-grid-4" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:18px; margin-bottom:20px;">
+              <div class="form-group">
+                <label class="form-label">Soil pH: <span class="val-tag" id="crop-ph-val">6.5</span></label>
+                <input type="range" class="form-range" id="crop-ph" min="3.5" max="9.0" step="0.1" value="6.5">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Temperature: <span class="val-tag" id="crop-temp-val">22</span>°C</label>
+                <input type="range" class="form-range" id="crop-temp" min="10" max="45" value="22">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Relative Humidity: <span class="val-tag" id="crop-hum-val">80</span>%</label>
+                <input type="range" class="form-range" id="crop-hum" min="20" max="100" value="80">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Seasonal Rainfall: <span class="val-tag" id="crop-rain-val">190</span> mm</label>
+                <input type="range" class="form-range" id="crop-rain" min="20" max="300" value="190">
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+              🌱 Find Optimal Crops for This Soil
+            </button>
+          </form>
+        </div>
+
+        <!-- Recommended Crop Cards Grid -->
+        <div>
+          <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:16px;">Top Ranked Crop Matches</h3>
+          <div class="crop-card-grid" id="crop-results-grid">
+            <div style="grid-column:1/-1; text-align:center; padding:32px; color:var(--text-dim);">
+              Adjust soil nutrients or click above to evaluate crop suitability.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 5: DISEASE DETECTION (HONEST INTEGRATION PLACEHOLDER)
+           ================================================================= -->
+      <section class="page-view" id="page-disease">
+        <div class="section-banner">
+          <div>
+            <h2>📷 Crop Leaf Disease Diagnostics</h2>
+            <p>Architectural drop-in interface for vision-based leaf disease classification.</p>
+          </div>
+        </div>
+
+        <!-- Honest Status Banner -->
+        <div class="alert-item warning" style="border-width:2px;">
+          <div class="alert-icon">ℹ️</div>
+          <div class="alert-content">
+            <h4>Module Under Active Integration (EfficientNet-B0)</h4>
+            <p>
+              In full compliance with project academic integrity principles: Leaf disease model development is currently 
+              being finalized by the dedicated vision team member. The contract interface and endpoints below are pre-wired 
+              for immediate drop-in without fabricating artificial predictions.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:28px;">
+          <!-- Left: Image Upload Test Box -->
+          <div class="glass-card">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">🖼️</span> Test Vision Input Pipeline</h3>
+            </div>
+            
+            <div id="disease-drop-zone" style="border: 2px dashed var(--card-border); border-radius: 14px; padding: 36px 20px; text-align: center; cursor: pointer; transition: all 0.2s ease;">
+              <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🍃</span>
+              <p style="font-weight: 600; color: #fff;">Click to select or drop a leaf image</p>
+              <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">Supports JPEG, PNG, WebP (224x224 RGB)</p>
+              <input type="file" id="disease-file-input" accept="image/*" style="display: none;">
+            </div>
+
+            <div style="margin-top: 16px; text-align: center;">
+              <img id="disease-preview-img" style="max-width: 180px; max-height: 180px; border-radius: 12px; display: none; margin: 0 auto; border: 1px solid var(--card-border);" alt="Leaf Preview">
+            </div>
+
+            <div style="margin-top: 20px;">
+              <button class="btn-secondary" style="width:100%;" onclick="window.krishiApp.switchPage('treatment')">
+                View Existing IPM Treatment Knowledge Base ➔
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Architectural Specification -->
+          <div class="glass-card">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">📐</span> Architecture & API Contract</h3>
+              <span class="badge warning">ON HOLD</span>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px;">
+              When the transfer-learning EfficientNet-B0 weights are placed in <code>backend/ml/models/disease_efficientnet.pt</code>, the inference handler activates automatically.
+            </p>
+
+            <div id="disease-result-box" style="display: none; margin-bottom: 16px;">
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--emerald-400); margin-bottom: 6px;">Live Endpoint Response:</div>
+              <pre id="disease-spec-box" style="background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #34d399; overflow-x: auto;"></pre>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 10px; font-size: 0.82rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+              <div><strong>Input Contract:</strong> Multipart image file (224x224x3 normalised tensor)</div>
+              <div><strong>Output Contract:</strong> Disease label, confidence score, linked IPM treatment ID</div>
+              <div><strong>Database Model:</strong> Prepared in <code>DiseasePredictionRecord</code></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 6: TREATMENT GUIDANCE & IPM KNOWLEDGE BASE
+           ================================================================= -->
+      <section class="page-view" id="page-treatment">
+        <div class="section-banner">
+          <div>
+            <h2>🌿 Integrated Pest Management (IPM) Knowledge Base</h2>
+            <p>Scientifically validated biological, organic, and agronomic treatments for major crop conditions.</p>
+          </div>
+        </div>
+
+        <!-- Search Bar & Filters -->
+        <div class="glass-card" style="padding:16px 24px;">
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:16px;">
+            <input type="text" class="form-input" id="treatment-search" placeholder="Search pest (e.g. Bollworm, Aphids, Stem Borer, Leek Moth)...">
+            <select class="form-select" id="treatment-crop-filter">
+              <option value="">All Crops</option>
+              <option value="cotton">Cotton</option>
+              <option value="rice">Rice</option>
+              <option value="maize">Maize</option>
+              <option value="chickpea">Chickpea</option>
+              <option value="prei">Leek / Prei</option>
+              <option value="bloemkool">Cauliflower</option>
+              <option value="witloof">Witloof / Chicory</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Treatments Grid -->
+        <div class="treatment-grid" id="treatment-results-grid">
+          <!-- Dynamically populated -->
+          <div style="color:var(--text-dim); text-align:center; padding:32px; grid-column:1/-1;">Loading IPM guidelines...</div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 7: HISTORICAL SENSOR TRENDS
+           ================================================================= -->
+      <section class="page-view" id="page-analytics">
+        <div class="section-banner">
+          <div>
+            <h2>📈 Historical Sensors & Agrometeorology Analytics</h2>
+            <p>Time-series observations from KU Leuven DRIP Project (2021–2023) with 65,000+ TEROS 10 dielectric sensor measurements.</p>
+          </div>
+          <div>
+            <span class="badge info" id="trends-record-count">65,768 Field Records</span>
+          </div>
+        </div>
+
+        <div class="glass-card chart-card-wrapper">
+          <div class="card-header-row">
+            <h3 class="card-title"><span class="icon">📊</span> Multi-Axis Time-Series: Soil Moisture vs. Temperature vs. Rain</h3>
+            <span class="card-subtitle">KU Leuven TEROS 10 Sensors at 15 cm depth</span>
+          </div>
+          <div class="chart-canvas-box">
+            <canvas id="analytics-trends-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header-row">
+            <h3 class="card-title"><span class="icon">📖</span> Dataset Provenance & Agricultural Research Context</h3>
+          </div>
+          <div style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; display:flex; flex-direction:column; gap:10px;">
+            <p>
+              The sensor measurements reflect 18 vegetable cropping cycles conducted in Flanders, Belgium across 2021 to 2023. 
+              Variables include dielectric capacitance millivolts, converted volumetric water content (m³/m³), local pluviometer precipitation, 
+              and Penman-Monteith daily Reference Evapotranspiration (ETo).
+            </p>
+            <p>
+              In KrishiRakshak, this research baseline provides grounded truth for real-time sensor simulation, automated drip vs. sprinkler 
+              advisory calculations, and machine learning validation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           PAGE 8: SETTINGS & MODE CONFIGURATION
+           ================================================================= -->
+      <section class="page-view" id="page-settings">
+        <div class="section-banner">
+          <div>
+            <h2>⚙️ System Settings & Data Mode</h2>
+            <p>Switch between offline dataset demonstration mode and live weather API integration.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:28px;">
+          <!-- Settings Form -->
+          <div class="glass-card">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">🎚️</span> Runtime Mode Switcher</h3>
+            </div>
+            <form id="settings-form" style="display:flex; flex-direction:column; gap:18px;">
+              <div class="form-group">
+                <label class="form-label">Data Mode</label>
+                <select class="form-select" id="setting-data-mode">
+                  <option value="dataset">DATASET MODE (Recommended for College / Academic Evaluation)</option>
+                  <option value="live">LIVE WEATHER MODE (Requires External API Key)</option>
+                </select>
+                <span style="font-size:0.75rem; color:var(--text-dim); margin-top:2px;">
+                  Dataset Mode uses local KU Leuven agrometeorological sensor records. Live Mode connects to OpenWeatherMap or WeatherAPI.
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Target Agricultural Station / City</label>
+                <input type="text" class="form-input" id="setting-city" value="Kruisem">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Weather API Key (Optional)</label>
+                <input type="password" class="form-input" id="setting-api-key" placeholder="Enter OpenWeatherMap API Key">
+              </div>
+
+              <button type="submit" class="btn-primary" style="margin-top:6px;">
+                💾 Save & Apply System Settings
+              </button>
+            </form>
+          </div>
+
+          <!-- Component Status Inspector -->
+          <div class="glass-card">
+            <div class="card-header-row">
+              <h3 class="card-title"><span class="icon">🔍</span> System Architecture Status</h3>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px; font-size:0.86rem;">
+              <div style="background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.08); padding:10px 14px; border-radius:8px;">
+                <span style="color:var(--text-dim); display:block; font-size:0.75rem;">WEATHER API STATUS</span>
+                <strong id="setting-api-configured" style="color:var(--text-main);">Not Set (Using Dataset)</strong>
+              </div>
+              <div style="background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.08); padding:10px 14px; border-radius:8px;">
+                <span style="color:var(--text-dim); display:block; font-size:0.75rem;">DATABASE BACKEND</span>
+                <strong id="setting-database" style="color:var(--emerald-600);">SQLite Fallback (Automated)</strong>
+              </div>
+              <div style="background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.08); padding:10px 14px; border-radius:8px;">
+                <span style="color:var(--text-dim); display:block; font-size:0.75rem;">HARDWARE SOIL SENSOR PROVIDER</span>
+                <strong id="setting-sensor-provider" style="color:var(--cyan-500);">DatasetProvider (ESP32 Ready)</strong>
+              </div>
+              <div style="background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.08); padding:10px 14px; border-radius:8px;">
+                <span style="color:var(--text-dim); display:block; font-size:0.75rem;">ML MODEL PIPELINE</span>
+                <strong style="color:var(--emerald-600);">XGBoost 1.0 (98.2% Accuracy) + TreeSHAP</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Script Modules -->
+  <script type="module" src="js/app.js?v=20261017_weather_live"></script>
+</body>
+</html>

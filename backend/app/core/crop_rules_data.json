@@ -1,0 +1,970 @@
+{
+  "apple": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 6.0,
+      "opt_max": 33.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 120.0,
+      "opt_min": 123.0,
+      "opt_max": 143.0,
+      "max": 145.0
+    },
+    "K": {
+      "min": 195.0,
+      "opt_min": 196.0,
+      "opt_max": 204.0,
+      "max": 205.0
+    },
+    "temperature": {
+      "min": 21.0,
+      "opt_min": 21.7,
+      "opt_max": 23.7,
+      "max": 24.0
+    },
+    "humidity": {
+      "min": 90.0,
+      "opt_min": 90.7,
+      "opt_max": 94.3,
+      "max": 94.9
+    },
+    "ph": {
+      "min": 5.51,
+      "opt_min": 5.63,
+      "opt_max": 6.23,
+      "max": 6.5
+    },
+    "rainfall": {
+      "min": 100.1,
+      "opt_min": 104.5,
+      "opt_max": 121.5,
+      "max": 125.0
+    }
+  },
+  "banana": {
+    "N": {
+      "min": 80.0,
+      "opt_min": 88.8,
+      "opt_max": 113.2,
+      "max": 120.0
+    },
+    "P": {
+      "min": 70.0,
+      "opt_min": 73.0,
+      "opt_max": 91.0,
+      "max": 95.0
+    },
+    "K": {
+      "min": 45.0,
+      "opt_min": 46.0,
+      "opt_max": 54.0,
+      "max": 55.0
+    },
+    "temperature": {
+      "min": 25.0,
+      "opt_min": 25.6,
+      "opt_max": 29.1,
+      "max": 29.9
+    },
+    "humidity": {
+      "min": 75.0,
+      "opt_min": 77.0,
+      "opt_max": 83.5,
+      "max": 85.0
+    },
+    "ph": {
+      "min": 5.51,
+      "opt_min": 5.69,
+      "opt_max": 6.28,
+      "max": 6.49
+    },
+    "rainfall": {
+      "min": 90.1,
+      "opt_min": 92.7,
+      "opt_max": 116.2,
+      "max": 119.8
+    }
+  },
+  "blackgram": {
+    "N": {
+      "min": 20.0,
+      "opt_min": 25.0,
+      "opt_max": 55.0,
+      "max": 60.0
+    },
+    "P": {
+      "min": 55.0,
+      "opt_min": 60.0,
+      "opt_max": 76.0,
+      "max": 80.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 15.8,
+      "opt_max": 23.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 25.1,
+      "opt_min": 27.2,
+      "opt_max": 33.1,
+      "max": 34.9
+    },
+    "humidity": {
+      "min": 60.1,
+      "opt_min": 61.6,
+      "opt_max": 68.4,
+      "max": 70.0
+    },
+    "ph": {
+      "min": 6.5,
+      "opt_min": 6.66,
+      "opt_max": 7.54,
+      "max": 7.78
+    },
+    "rainfall": {
+      "min": 60.4,
+      "opt_min": 63.0,
+      "opt_max": 72.6,
+      "max": 74.9
+    }
+  },
+  "chickpea": {
+    "N": {
+      "min": 20.0,
+      "opt_min": 27.0,
+      "opt_max": 57.0,
+      "max": 60.0
+    },
+    "P": {
+      "min": 55.0,
+      "opt_min": 58.8,
+      "opt_max": 76.0,
+      "max": 80.0
+    },
+    "K": {
+      "min": 75.0,
+      "opt_min": 76.0,
+      "opt_max": 84.0,
+      "max": 85.0
+    },
+    "temperature": {
+      "min": 17.0,
+      "opt_min": 17.5,
+      "opt_max": 20.3,
+      "max": 21.0
+    },
+    "humidity": {
+      "min": 14.3,
+      "opt_min": 14.8,
+      "opt_max": 18.9,
+      "max": 20.0
+    },
+    "ph": {
+      "min": 5.99,
+      "opt_min": 6.41,
+      "opt_max": 8.17,
+      "max": 8.87
+    },
+    "rainfall": {
+      "min": 65.1,
+      "opt_min": 70.8,
+      "opt_max": 89.6,
+      "max": 94.8
+    }
+  },
+  "coconut": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 7.8,
+      "opt_max": 34.1,
+      "max": 40.0
+    },
+    "P": {
+      "min": 5.0,
+      "opt_min": 7.0,
+      "opt_max": 28.0,
+      "max": 30.0
+    },
+    "K": {
+      "min": 25.0,
+      "opt_min": 27.0,
+      "opt_max": 34.0,
+      "max": 35.0
+    },
+    "temperature": {
+      "min": 25.0,
+      "opt_min": 25.8,
+      "opt_max": 29.0,
+      "max": 29.9
+    },
+    "humidity": {
+      "min": 90.0,
+      "opt_min": 91.6,
+      "opt_max": 98.1,
+      "max": 100.0
+    },
+    "ph": {
+      "min": 5.5,
+      "opt_min": 5.62,
+      "opt_max": 6.33,
+      "max": 6.47
+    },
+    "rainfall": {
+      "min": 131.1,
+      "opt_min": 144.3,
+      "opt_max": 213.0,
+      "max": 225.6
+    }
+  },
+  "coffee": {
+    "N": {
+      "min": 80.0,
+      "opt_min": 85.8,
+      "opt_max": 116.0,
+      "max": 120.0
+    },
+    "P": {
+      "min": 15.0,
+      "opt_min": 20.8,
+      "opt_max": 38.0,
+      "max": 40.0
+    },
+    "K": {
+      "min": 25.0,
+      "opt_min": 26.0,
+      "opt_max": 34.0,
+      "max": 35.0
+    },
+    "temperature": {
+      "min": 23.1,
+      "opt_min": 23.6,
+      "opt_max": 27.3,
+      "max": 27.9
+    },
+    "humidity": {
+      "min": 50.0,
+      "opt_min": 52.3,
+      "opt_max": 66.8,
+      "max": 69.9
+    },
+    "ph": {
+      "min": 6.02,
+      "opt_min": 6.33,
+      "opt_max": 7.24,
+      "max": 7.49
+    },
+    "rainfall": {
+      "min": 115.2,
+      "opt_min": 127.1,
+      "opt_max": 191.4,
+      "max": 199.5
+    }
+  },
+  "cotton": {
+    "N": {
+      "min": 100.0,
+      "opt_min": 104.8,
+      "opt_max": 131.1,
+      "max": 140.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 38.0,
+      "opt_max": 56.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 16.0,
+      "opt_max": 24.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 22.0,
+      "opt_min": 22.7,
+      "opt_max": 25.3,
+      "max": 26.0
+    },
+    "humidity": {
+      "min": 75.0,
+      "opt_min": 76.2,
+      "opt_max": 83.6,
+      "max": 84.9
+    },
+    "ph": {
+      "min": 5.8,
+      "opt_min": 6.19,
+      "opt_max": 7.64,
+      "max": 7.99
+    },
+    "rainfall": {
+      "min": 60.7,
+      "opt_min": 66.5,
+      "opt_max": 92.0,
+      "max": 99.9
+    }
+  },
+  "grapes": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 7.8,
+      "opt_max": 38.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 120.0,
+      "opt_min": 122.8,
+      "opt_max": 141.0,
+      "max": 145.0
+    },
+    "K": {
+      "min": 195.0,
+      "opt_min": 196.0,
+      "opt_max": 204.0,
+      "max": 205.0
+    },
+    "temperature": {
+      "min": 8.8,
+      "opt_min": 12.1,
+      "opt_max": 35.8,
+      "max": 41.9
+    },
+    "humidity": {
+      "min": 80.0,
+      "opt_min": 80.6,
+      "opt_max": 83.3,
+      "max": 84.0
+    },
+    "ph": {
+      "min": 5.51,
+      "opt_min": 5.68,
+      "opt_max": 6.38,
+      "max": 6.5
+    },
+    "rainfall": {
+      "min": 65.0,
+      "opt_min": 66.3,
+      "opt_max": 73.6,
+      "max": 74.9
+    }
+  },
+  "jute": {
+    "N": {
+      "min": 60.0,
+      "opt_min": 65.8,
+      "opt_max": 90.0,
+      "max": 100.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 39.0,
+      "opt_max": 56.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 35.0,
+      "opt_min": 36.0,
+      "opt_max": 44.0,
+      "max": 45.0
+    },
+    "temperature": {
+      "min": 23.1,
+      "opt_min": 23.5,
+      "opt_max": 26.4,
+      "max": 27.0
+    },
+    "humidity": {
+      "min": 70.9,
+      "opt_min": 73.5,
+      "opt_max": 86.8,
+      "max": 89.9
+    },
+    "ph": {
+      "min": 6.0,
+      "opt_min": 6.19,
+      "opt_max": 7.27,
+      "max": 7.49
+    },
+    "rainfall": {
+      "min": 150.2,
+      "opt_min": 154.8,
+      "opt_max": 192.3,
+      "max": 199.8
+    }
+  },
+  "kidneybeans": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 7.8,
+      "opt_max": 33.1,
+      "max": 40.0
+    },
+    "P": {
+      "min": 55.0,
+      "opt_min": 59.0,
+      "opt_max": 77.1,
+      "max": 80.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 16.0,
+      "opt_max": 23.1,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 15.3,
+      "opt_min": 17.1,
+      "opt_max": 23.2,
+      "max": 24.9
+    },
+    "humidity": {
+      "min": 18.1,
+      "opt_min": 18.9,
+      "opt_max": 24.3,
+      "max": 25.0
+    },
+    "ph": {
+      "min": 5.5,
+      "opt_min": 5.58,
+      "opt_max": 5.94,
+      "max": 6.0
+    },
+    "rainfall": {
+      "min": 60.3,
+      "opt_min": 72.8,
+      "opt_max": 137.4,
+      "max": 149.7
+    }
+  },
+  "lentil": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 4.8,
+      "opt_max": 33.1,
+      "max": 40.0
+    },
+    "P": {
+      "min": 55.0,
+      "opt_min": 60.0,
+      "opt_max": 77.1,
+      "max": 80.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 16.0,
+      "opt_max": 23.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 18.1,
+      "opt_min": 20.7,
+      "opt_max": 28.1,
+      "max": 29.9
+    },
+    "humidity": {
+      "min": 60.1,
+      "opt_min": 61.6,
+      "opt_max": 68.5,
+      "max": 69.9
+    },
+    "ph": {
+      "min": 5.92,
+      "opt_min": 6.28,
+      "opt_max": 7.61,
+      "max": 7.84
+    },
+    "rainfall": {
+      "min": 35.0,
+      "opt_min": 38.2,
+      "opt_max": 52.0,
+      "max": 54.9
+    }
+  },
+  "maize": {
+    "N": {
+      "min": 60.0,
+      "opt_min": 63.0,
+      "opt_max": 92.1,
+      "max": 100.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 38.0,
+      "opt_max": 58.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 16.8,
+      "opt_max": 23.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 18.0,
+      "opt_min": 18.9,
+      "opt_max": 25.3,
+      "max": 26.5
+    },
+    "humidity": {
+      "min": 55.3,
+      "opt_min": 59.2,
+      "opt_max": 71.7,
+      "max": 74.8
+    },
+    "ph": {
+      "min": 5.51,
+      "opt_min": 5.75,
+      "opt_max": 6.68,
+      "max": 7.0
+    },
+    "rainfall": {
+      "min": 60.7,
+      "opt_min": 65.8,
+      "opt_max": 104.2,
+      "max": 109.8
+    }
+  },
+  "mango": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 5.0,
+      "opt_max": 36.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 15.0,
+      "opt_min": 18.0,
+      "opt_max": 36.0,
+      "max": 40.0
+    },
+    "K": {
+      "min": 25.0,
+      "opt_min": 26.0,
+      "opt_max": 34.0,
+      "max": 35.0
+    },
+    "temperature": {
+      "min": 27.0,
+      "opt_min": 27.9,
+      "opt_max": 34.2,
+      "max": 36.0
+    },
+    "humidity": {
+      "min": 45.0,
+      "opt_min": 47.1,
+      "opt_max": 53.2,
+      "max": 55.0
+    },
+    "ph": {
+      "min": 4.51,
+      "opt_min": 4.95,
+      "opt_max": 6.49,
+      "max": 6.97
+    },
+    "rainfall": {
+      "min": 89.3,
+      "opt_min": 90.8,
+      "opt_max": 98.4,
+      "max": 100.8
+    }
+  },
+  "mothbeans": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 7.8,
+      "opt_max": 35.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 38.8,
+      "opt_max": 57.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 17.0,
+      "opt_max": 24.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 24.0,
+      "opt_min": 25.5,
+      "opt_max": 30.9,
+      "max": 32.0
+    },
+    "humidity": {
+      "min": 40.0,
+      "opt_min": 44.8,
+      "opt_max": 61.3,
+      "max": 65.0
+    },
+    "ph": {
+      "min": 3.5,
+      "opt_min": 4.52,
+      "opt_max": 8.87,
+      "max": 9.94
+    },
+    "rainfall": {
+      "min": 30.9,
+      "opt_min": 35.0,
+      "opt_max": 68.1,
+      "max": 74.4
+    }
+  },
+  "mungbean": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 6.8,
+      "opt_max": 34.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 37.8,
+      "opt_max": 57.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 16.0,
+      "opt_max": 23.1,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 27.0,
+      "opt_min": 27.6,
+      "opt_max": 29.6,
+      "max": 29.9
+    },
+    "humidity": {
+      "min": 80.0,
+      "opt_min": 82.0,
+      "opt_max": 88.7,
+      "max": 90.0
+    },
+    "ph": {
+      "min": 6.22,
+      "opt_min": 6.4,
+      "opt_max": 7.07,
+      "max": 7.2
+    },
+    "rainfall": {
+      "min": 36.1,
+      "opt_min": 40.2,
+      "opt_max": 56.5,
+      "max": 59.9
+    }
+  },
+  "muskmelon": {
+    "N": {
+      "min": 80.0,
+      "opt_min": 85.0,
+      "opt_max": 115.0,
+      "max": 120.0
+    },
+    "P": {
+      "min": 5.0,
+      "opt_min": 9.0,
+      "opt_max": 25.0,
+      "max": 30.0
+    },
+    "K": {
+      "min": 45.0,
+      "opt_min": 46.0,
+      "opt_max": 54.0,
+      "max": 55.0
+    },
+    "temperature": {
+      "min": 27.0,
+      "opt_min": 27.7,
+      "opt_max": 29.6,
+      "max": 29.9
+    },
+    "humidity": {
+      "min": 90.0,
+      "opt_min": 90.7,
+      "opt_max": 94.3,
+      "max": 95.0
+    },
+    "ph": {
+      "min": 6.0,
+      "opt_min": 6.1,
+      "opt_max": 6.66,
+      "max": 6.78
+    },
+    "rainfall": {
+      "min": 20.2,
+      "opt_min": 21.2,
+      "opt_max": 28.1,
+      "max": 29.9
+    }
+  },
+  "orange": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 6.0,
+      "opt_max": 34.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 5.0,
+      "opt_min": 7.8,
+      "opt_max": 25.0,
+      "max": 30.0
+    },
+    "K": {
+      "min": 5.0,
+      "opt_min": 6.0,
+      "opt_max": 14.0,
+      "max": 15.0
+    },
+    "temperature": {
+      "min": 10.0,
+      "opt_min": 13.7,
+      "opt_max": 31.6,
+      "max": 34.9
+    },
+    "humidity": {
+      "min": 90.0,
+      "opt_min": 90.6,
+      "opt_max": 94.0,
+      "max": 95.0
+    },
+    "ph": {
+      "min": 6.01,
+      "opt_min": 6.38,
+      "opt_max": 7.66,
+      "max": 8.0
+    },
+    "rainfall": {
+      "min": 100.2,
+      "opt_min": 103.2,
+      "opt_max": 116.9,
+      "max": 119.7
+    }
+  },
+  "papaya": {
+    "N": {
+      "min": 31.0,
+      "opt_min": 35.0,
+      "opt_max": 65.1,
+      "max": 70.0
+    },
+    "P": {
+      "min": 46.0,
+      "opt_min": 50.0,
+      "opt_max": 67.0,
+      "max": 70.0
+    },
+    "K": {
+      "min": 45.0,
+      "opt_min": 47.0,
+      "opt_max": 53.0,
+      "max": 55.0
+    },
+    "temperature": {
+      "min": 23.0,
+      "opt_min": 26.0,
+      "opt_max": 41.3,
+      "max": 43.7
+    },
+    "humidity": {
+      "min": 90.0,
+      "opt_min": 90.8,
+      "opt_max": 94.0,
+      "max": 94.9
+    },
+    "ph": {
+      "min": 6.5,
+      "opt_min": 6.58,
+      "opt_max": 6.93,
+      "max": 6.99
+    },
+    "rainfall": {
+      "min": 40.4,
+      "opt_min": 63.7,
+      "opt_max": 218.1,
+      "max": 248.9
+    }
+  },
+  "pigeonpeas": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 5.8,
+      "opt_max": 35.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 55.0,
+      "opt_min": 58.8,
+      "opt_max": 75.0,
+      "max": 80.0
+    },
+    "K": {
+      "min": 15.0,
+      "opt_min": 17.0,
+      "opt_max": 24.0,
+      "max": 25.0
+    },
+    "temperature": {
+      "min": 18.3,
+      "opt_min": 19.9,
+      "opt_max": 34.5,
+      "max": 37.0
+    },
+    "humidity": {
+      "min": 30.4,
+      "opt_min": 35.4,
+      "opt_max": 60.7,
+      "max": 69.7
+    },
+    "ph": {
+      "min": 4.55,
+      "opt_min": 4.8,
+      "opt_max": 6.88,
+      "max": 7.45
+    },
+    "rainfall": {
+      "min": 90.1,
+      "opt_min": 107.1,
+      "opt_max": 186.6,
+      "max": 198.8
+    }
+  },
+  "pomegranate": {
+    "N": {
+      "min": 0.0,
+      "opt_min": 4.8,
+      "opt_max": 36.0,
+      "max": 40.0
+    },
+    "P": {
+      "min": 5.0,
+      "opt_min": 9.0,
+      "opt_max": 27.0,
+      "max": 30.0
+    },
+    "K": {
+      "min": 35.0,
+      "opt_min": 36.8,
+      "opt_max": 44.0,
+      "max": 45.0
+    },
+    "temperature": {
+      "min": 18.1,
+      "opt_min": 19.3,
+      "opt_max": 24.5,
+      "max": 25.0
+    },
+    "humidity": {
+      "min": 85.1,
+      "opt_min": 86.7,
+      "opt_max": 93.3,
+      "max": 95.0
+    },
+    "ph": {
+      "min": 5.56,
+      "opt_min": 5.83,
+      "opt_max": 7.01,
+      "max": 7.2
+    },
+    "rainfall": {
+      "min": 102.5,
+      "opt_min": 104.4,
+      "opt_max": 111.0,
+      "max": 112.5
+    }
+  },
+  "rice": {
+    "N": {
+      "min": 60.0,
+      "opt_min": 66.0,
+      "opt_max": 93.0,
+      "max": 99.0
+    },
+    "P": {
+      "min": 35.0,
+      "opt_min": 37.8,
+      "opt_max": 57.0,
+      "max": 60.0
+    },
+    "K": {
+      "min": 35.0,
+      "opt_min": 36.0,
+      "opt_max": 43.0,
+      "max": 45.0
+    },
+    "temperature": {
+      "min": 20.0,
+      "opt_min": 21.3,
+      "opt_max": 26.2,
+      "max": 26.9
+    },
+    "humidity": {
+      "min": 80.1,
+      "opt_min": 80.5,
+      "opt_max": 83.8,
+      "max": 85.0
+    },
+    "ph": {
+      "min": 5.01,
+      "opt_min": 5.58,
+      "opt_max": 7.29,
+      "max": 7.87
+    },
+    "rainfall": {
+      "min": 182.6,
+      "opt_min": 195.0,
+      "opt_max": 276.9,
+      "max": 298.6
+    }
+  },
+  "watermelon": {
+    "N": {
+      "min": 80.0,
+      "opt_min": 83.8,
+      "opt_max": 115.2,
+      "max": 120.0
+    },
+    "P": {
+      "min": 5.0,
+      "opt_min": 7.0,
+      "opt_max": 25.0,
+      "max": 30.0
+    },
+    "K": {
+      "min": 45.0,
+      "opt_min": 46.0,
+      "opt_max": 54.0,
+      "max": 55.0
+    },
+    "temperature": {
+      "min": 24.0,
+      "opt_min": 24.5,
+      "opt_max": 26.6,
+      "max": 27.0
+    },
+    "humidity": {
+      "min": 80.0,
+      "opt_min": 81.3,
+      "opt_max": 88.7,
+      "max": 90.0
+    },
+    "ph": {
+      "min": 6.0,
+      "opt_min": 6.19,
+      "opt_max": 6.84,
+      "max": 6.96
+    },
+    "rainfall": {
+      "min": 40.1,
+      "opt_min": 44.1,
+      "opt_max": 57.5,
+      "max": 59.8
+    }
+  }
+}
